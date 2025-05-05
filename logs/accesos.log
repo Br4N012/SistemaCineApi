@@ -1,0 +1,14 @@
+2025-04-25 20:37:48 - /api/empleados/obtenerTodos - ::1
+2025-04-25 20:38:22 - /api/empleados/obtenerPorId/12 - ::1
+2025-04-25 20:38:32 - /api/empleados/obtenerPorPuesto - ::1
+2025-04-25 20:38:40 - /api/empleados/crearEmpleado - ::1
+2025-04-25 20:38:47 - /api/empleados/actualizarEmpleado - ::1
+2025-04-25 20:38:54 - /api/empleados/eliminarEmpleado - ::1
+2025-04-25 20:39:00 - /api/empleados/ordenarPorPuestoId/2 - ::1
+2025-04-25 20:39:01 - /api/empleados/ordenarPorPuestoId/2 - ::1
+2025-04-25 20:39:04 - /api/empleados/ordenarPorPuestoId/2 - ::1
+2025-04-28 19:40:25 - /api/empleados/obtenerTodos - ::1
+2025-04-28 19:41:02 - /api/empleados/obtenerTodos - ::1
+2025-04-28 19:41:49 - /api/empleados/obtenerPorId/1 - ::1
+2025-04-28 19:41:55 - /api/empleados/obtenerPorId/2 - ::1
+2025-04-29 19:47:34 - /api/empleados/obtenerTodos - ::1
