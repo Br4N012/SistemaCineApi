@@ -75,5 +75,22 @@ class PeliculasController {
             echo "<error>Error al eliminar la película</error>";
         }
     }
+    public static function search($titulo){
+    $pelicula= PeliculasService::obtenerPeliculaPorNombre($titulo);
+    header('Content-Type: application/xml');
+
+    if (!$pelicula) {
+        header("HTTP/1.1 404 Not Found");
+        echo "<error>Película no encontrada</error>";
+        return;
+    }
+
+    $xml = new SimpleXMLElement('<pelicula/>');
+    foreach($pelicula as $key => $value){
+        $xml->addChild($key, htmlspecialchars($value));
+
+    }
+    echo $xml->asXML();
+  }
 }
 ?>

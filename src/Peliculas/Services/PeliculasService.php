@@ -25,5 +25,8 @@ class PeliculasService {
     public static function eliminarPelicula($id) {
         return Peliculas::eliminarPelicula($id);
     }
+    public static function obtenerPeliculaPorNombre($titulo) {
+        return Peliculas::obtenerPeliculaPorNombre($titulo);
+    }
 }
 ?>

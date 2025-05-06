@@ -49,5 +49,14 @@ class Peliculas {
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     }
+    public static function obtenerPeliculaPorNombre($titulo){
+        global $conn;
+        $sql = "SELECT * FROM peliculas WHERE titulo = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $titulo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
 }
 ?>
