@@ -13,7 +13,5 @@ else if ($request_method === "POST" && $request_uri === '/api/peliculas/comprar'
     CompraController::comprar();
 }
 
-else {
-    header("HTTP/1.1 404 Not Found");
-}
+
 ?>

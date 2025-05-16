@@ -32,7 +32,5 @@ else if ($request_method === "DELETE" && preg_match('/\/api\/peliculas\/eliminar
 else if ($request_method == 'GET' && preg_match('/\/api\/peliculas\/obtenerPelicula\/([^\/]+)/', $request_uri, $matches)) {
     $titulo = urldecode($matches[1]); // Decodificar el título en caso de caracteres especiales
     PeliculasController::search($titulo);
-}else {
-    header("HTTP/1.1 404 Not Found");
 }
 ?>
