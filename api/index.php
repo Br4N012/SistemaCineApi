@@ -14,7 +14,11 @@ if (strpos($request_uri, '/api/peliculas') === 0) {
     require_once '../src/Salas/index.php';
 } elseif (strpos($request_uri, '/api/funciones') === 0) {
     require_once '../src/Funciones/index.php';
-} else {
+} else if(strpos($request_uri, '/api/movimientos') === 0){
+    require_once '../src/Movimientos/index.php';
+}else if (strpos($request_uri, '/api/asientos') === 0){
+    require_once '../src/Asientos/index.php';
+}else {
     header("HTTP/1.1 404 Not Found");
 }
 ?>
