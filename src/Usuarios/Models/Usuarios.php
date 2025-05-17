@@ -20,13 +20,13 @@ class Usuarios {
     }
 
     public static function crearUsuario($nombre, $correo, $contraseña) {
-        global $conn;
-        $sql = "INSERT INTO usuarios (nombre, correo, contraseña) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $nombre, $correo, password_hash($contraseña, PASSWORD_BCRYPT));
-        return $stmt->execute();
-    }
-
+    global $conn;
+    $sql = "INSERT INTO usuarios (nombre, correo, contraseña) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $hash = password_hash($contraseña, PASSWORD_BCRYPT); // <-- variable intermedia
+    $stmt->bind_param("sss", $nombre, $correo, $hash);
+    return $stmt->execute();
+}
     public static function actualizarUsuario($id, $nombre, $correo, $contraseña) {
         global $conn;
         $sql = "UPDATE usuarios SET nombre = ?, correo = ?, contraseña = ? WHERE id = ?";

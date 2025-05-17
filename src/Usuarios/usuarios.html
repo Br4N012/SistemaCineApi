@@ -1,0 +1,114 @@
+<!-- archivo: usuarios.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Usuarios</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f0f0f0; }
+        input, button { margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Usuarios</h1>
+    <button onclick="cargarUsuarios()">Cargar Usuarios</button>
+    <table id="usuariosTable">
+        <thead>
+            <tr>
+                <th>ID</th><th>Nombre</th><th>Correo</th><th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h2>Agregar/Actualizar Usuario</h2>
+    <form id="usuarioForm" onsubmit="guardarUsuario(event)">
+        <input type="hidden" id="usuarioId">
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="email" id="correo" placeholder="Correo" required>
+        <input type="password" id="contraseña" placeholder="Contraseña" required>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <script>
+        const apiUrl = 'http://localhost:8080/api/usuarios';
+
+        function cargarUsuarios() {
+            fetch(apiUrl + '/obtenerTodos')
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.querySelector('#usuariosTable tbody');
+                    tbody.innerHTML = '';
+                    data.forEach(usuario => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${usuario.id}</td>
+                                <td>${usuario.nombre}</td>
+                                <td>${usuario.correo}</td>
+                                <td>
+                                    <button onclick="editarUsuario(${usuario.id})">Editar</button>
+                                    <button onclick="eliminarUsuario(${usuario.id})">Eliminar</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                });
+        }
+
+        function guardarUsuario(event) {
+            event.preventDefault();
+            const id = document.getElementById('usuarioId').value;
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const contraseña = document.getElementById('contraseña').value;
+            const usuario = { nombre, correo, contraseña };
+
+            let url = apiUrl + '/registrarUsuario';
+            let method = 'POST';
+
+            if (id) {
+                usuario.id = parseInt(id);
+                url = apiUrl + '/actualizarUsuario';
+                method = 'PUT';
+            }
+
+            fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(usuario)
+            })
+            .then(res => res.json())
+            .then(() => {
+                cargarUsuarios();
+                document.getElementById('usuarioForm').reset();
+                document.getElementById('usuarioId').value = '';
+            });
+        }
+
+        function editarUsuario(id) {
+            fetch(apiUrl + '/obtenerPorId/' + id)
+                .then(res => res.json())
+                .then(usuario => {
+                    document.getElementById('usuarioId').value = usuario.id;
+                    document.getElementById('nombre').value = usuario.nombre;
+                    document.getElementById('correo').value = usuario.correo;
+                    document.getElementById('contraseña').value = '';
+                });
+        }
+
+        function eliminarUsuario(id) {
+            if (confirm('¿Seguro que deseas eliminar este usuario?')) {
+                fetch(apiUrl + '/eliminarUsuario/' + id, { method: 'DELETE' })
+                    .then(res => res.json())
+                    .then(() => cargarUsuarios());
+            }
+        }
+
+        // Cargar usuarios al iniciar
+        cargarUsuarios();
+    </script>
+</body>
+</html>
