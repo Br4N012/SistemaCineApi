@@ -16,7 +16,8 @@ CREATE TABLE peliculas (
     duracion INT, -- en minutos
     clasificacion VARCHAR(10),
     genero VARCHAR(50),
-    poster VARCHAR(255)
+    poster VARCHAR(255),
+    mes_estreno VARCHAR(20)
 );
 
 CREATE TABLE salas (

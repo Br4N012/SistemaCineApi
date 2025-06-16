@@ -4,12 +4,12 @@ require_once __DIR__ . '/../controllers/CompraController.php';
 $request_uri = $_SERVER['REQUEST_URI'];
 $request_method = $_SERVER['REQUEST_METHOD'];
 
-if ($request_method === "POST" && $request_uri === '/api/peliculas/reservar') {
+if ($request_method === "POST" && $request_uri === '/api/compra/reservar') {
     CompraController::reservar();
 }
 
 
-else if ($request_method === "POST" && $request_uri === '/api/peliculas/comprar') {
+else if ($request_method === "POST" && $request_uri === '/api/compra/comprar') {
     CompraController::comprar();
 }
 

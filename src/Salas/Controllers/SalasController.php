@@ -1,63 +1,64 @@
 <?php
 require_once __DIR__ . '/../services/SalasService.php';
+require_once __DIR__ . '/../../../handler/XmlHandler.php';
 
 class SalasController {
     public static function index() {
         $salas = SalasService::obtenerTodas();
-        header('Content-Type: application/json');
-        echo json_encode($salas);
+        header('Content-Type: application/xml');
+        echo XmlHandler::generarXml($salas, 'salas', 'sala');
     }
 
     public static function show($id) {
         $sala = SalasService::obtenerPorId($id);
-        header('Content-Type: application/json');
+        header('Content-Type: application/xml');
 
         if (!$sala) {
             header("HTTP/1.1 404 Not Found");
-            echo json_encode(["error" => "Sala no encontrada"]);
+            echo "<error>Sala no encontrada</error>";
             return;
         }
-        echo json_encode($sala);
+        echo XmlHandler::generarXml($sala, 'sala');
     }
 
     public static function create() {
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = simplexml_load_string(file_get_contents("php://input"));
 
-        $nombre = $data['nombre'];
-        $capacidad = $data['capacidad'];
+        $nombre = (string)$data->nombre;
+        $capacidad = (int)$data->capacidad;
 
         if (SalasService::crearSala($nombre, $capacidad)) {
             header("HTTP/1.1 201 Created");
-            echo json_encode(["message" => "Sala creada exitosamente"]);
+            echo "<message>Sala creada exitosamente</message>";
         } else {
             header("HTTP/1.1 500 Internal Server Error");
-            echo json_encode(["error" => "Error al crear la sala"]);
+            echo "<error>Error al crear la sala</error>";
         }
     }
 
     public static function update() {
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = simplexml_load_string(file_get_contents("php://input"));
 
-        $id = $data['id'];
-        $nombre = $data['nombre'];
-        $capacidad = $data['capacidad'];
+        $id = (int)$data->id;
+        $nombre = (string)$data->nombre;
+        $capacidad = (int)$data->capacidad;
 
         if (SalasService::actualizarSala($id, $nombre, $capacidad)) {
             header("HTTP/1.1 200 OK");
-            echo json_encode(["message" => "Sala actualizada exitosamente"]);
+            echo "<message>Sala actualizada exitosamente</message>";
         } else {
             header("HTTP/1.1 500 Internal Server Error");
-            echo json_encode(["error" => "Error al actualizar la sala"]);
+            echo "<error>Error al actualizar la sala</error>";
         }
     }
 
     public static function delete($id) {
         if (SalasService::eliminarSala($id)) {
             header("HTTP/1.1 200 OK");
-            echo json_encode(["message" => "Sala eliminada exitosamente"]);
+            echo "<message>Sala eliminada exitosamente</message>";
         } else {
             header("HTTP/1.1 500 Internal Server Error");
-            echo json_encode(["error" => "Error al eliminar la sala"]);
+            echo "<error>Error al eliminar la sala</error>";
         }
     }
 }
