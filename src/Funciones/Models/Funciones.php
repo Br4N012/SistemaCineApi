@@ -26,6 +26,19 @@ class Funciones {
         return $result->fetch_assoc();
     }
 
+    public static function obtenerPorPelicula($id_pelicula){
+        global $conn;
+    $sql = "SELECT f.id, f.horario, f.id_sala, s.nombre AS sala_nombre
+            FROM funciones f
+            JOIN salas s ON f.id_sala = s.id
+            WHERE f.id_pelicula = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id_pelicula);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public static function crearFuncion($id_pelicula, $id_sala, $horario) {
         global $conn;
         $sql = "INSERT INTO funciones (id_pelicula, id_sala, horario) VALUES (?, ?, ?)";

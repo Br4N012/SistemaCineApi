@@ -25,8 +25,11 @@ else if ($request_method === "DELETE" && preg_match('/\/api\/funciones\/eliminar
     $id = $matches[1];
     FuncionesController::delete($id);
 }
-
-else {
-    header("HTTP/1.1 404 Not Found");
+else if($request_method === "GET" && preg_match('/\/api\/funciones\/pelicula\/(\d+)/', $request_uri, $matches)) {
+    $id_pelicula = $matches[1];
+    FuncionesController::getByPelicula($id_pelicula);
+    exit;
 }
+
+
 ?>

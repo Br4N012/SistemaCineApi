@@ -18,6 +18,15 @@ class Peliculas {
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+    public static function obtenerPorMes($mes) {
+    global $conn;
+    $sql = "SELECT * FROM peliculas WHERE mes_estreno = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $mes);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
 
     public static function ordenarPorClasificacion() {
         global $conn;
@@ -58,5 +67,6 @@ class Peliculas {
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+    
 }
 ?>

@@ -33,4 +33,9 @@ else if ($request_method == 'GET' && preg_match('/\/api\/peliculas\/obtenerPelic
     $titulo = urldecode($matches[1]); // Decodificar el título en caso de caracteres especiales
     PeliculasController::search($titulo);
 }
+else if($request_method === "GET" && preg_match('/\/api\/peliculas\/mes\/([a-zA-Z]+)/', $request_uri, $matches)) {
+    $mes = $matches[1];
+    PeliculasController::getByMes($mes);
+    exit;
+}
 ?>

@@ -12,7 +12,7 @@ if (isset($_GET['month'])) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo '<div class="pelicula">
-                    <img src="images/' . htmlspecialchars($row["poster"]) . '" alt="' . htmlspecialchars($row["titulo"]) . '">
+                    <img src="public/images/' . htmlspecialchars($row["poster"]) . '" alt="' . htmlspecialchars($row["titulo"]) . '">
                     <h3>' . htmlspecialchars($row["titulo"]) . '</h3>
                     <p>' . htmlspecialchars($row["genero"]) . ' | ' . htmlspecialchars($row["clasificacion"]) . ' | ' . htmlspecialchars($row["duracion"]) . ' min</p>
                   </div>';

@@ -1,4 +1,4 @@
-        body {
+body {
             background-color: #1a1a1a; 
             color: #f0f0f0;
             font-family: Arial, sans-serif;
@@ -51,6 +51,19 @@
             font-size: 1.1rem;
             color: #ccc;
             line-height: 1.6;
+        }
+
+        .movie-info {
+            color: #fff;
+            background: rgba(0,0,0,0.7);
+            padding: 8px;
+            border-radius: 0 0 8px 8px;
+            font-size: 0.95em;
+            text-align: left;
+        }
+
+        .card {
+            margin-bottom: 16px;
         }
 
         .booking-details-panel {
