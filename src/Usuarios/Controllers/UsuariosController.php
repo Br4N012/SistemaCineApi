@@ -1,66 +1,71 @@
 <?php
 require_once __DIR__ . '/../services/UsuariosService.php';
+require_once __DIR__ . '/../../../handler/XmlHandler.php';
 
 class UsuariosController {
     public static function index() {
         $usuarios = UsuariosService::obtenerTodos();
-        header('Content-Type: application/json');
-        echo json_encode($usuarios);
+        header('Content-Type: application/xml');
+        echo XmlHandler::generarXml($usuarios, 'usuarios', 'usuario');
     }
 
     public static function show($id) {
         $usuario = UsuariosService::obtenerPorId($id);
-        header('Content-Type: application/json');
+        header('Content-Type: application/xml');
 
         if (!$usuario) {
             header("HTTP/1.1 404 Not Found");
-            echo json_encode(["error" => "Usuario no encontrado"]);
+            echo "<error>Usuario no encontrado</error>";
             return;
         }
-        echo json_encode($usuario);
+
+        echo XmlHandler::generarXml($usuario, 'usuario');
     }
 
     public static function create() {
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = file_get_contents("php://input");
+        $xml = simplexml_load_string($data);
 
-        $nombre = $data['nombre'];
-        $correo = $data['correo'];
-        $contraseña = $data['contraseña'];
+        $nombre = (string)$xml->nombre;
+        $correo = (string)$xml->correo;
+        $contraseña = (string)$xml->contraseña;
 
         if (UsuariosService::crearUsuario($nombre, $correo, $contraseña)) {
             header("HTTP/1.1 201 Created");
-            echo json_encode(["message" => "Usuario creado exitosamente"]);
+            echo "<message>Usuario creado exitosamente</message>";
         } else {
             header("HTTP/1.1 500 Internal Server Error");
-            echo json_encode(["error" => "Error al crear el usuario"]);
+            echo "<error>Error al crear el usuario</error>";
         }
     }
 
     public static function update() {
-        $data = json_decode(file_get_contents("php://input"), true);
+        $data = file_get_contents("php://input");
+        $xml = simplexml_load_string($data);
 
-        $id = $data['id'];
-        $nombre = $data['nombre'];
-        $correo = $data['correo'];
-        $contraseña = $data['contraseña'];
+        $id = (int)$xml->id;
+        $nombre = (string)$xml->nombre;
+        $correo = (string)$xml->correo;
+        $contraseña = (string)$xml->contraseña;
 
         if (UsuariosService::actualizarUsuario($id, $nombre, $correo, $contraseña)) {
             header("HTTP/1.1 200 OK");
-            echo json_encode(["message" => "Usuario actualizado exitosamente"]);
+            echo "<message>Usuario actualizado exitosamente</message>";
         } else {
             header("HTTP/1.1 500 Internal Server Error");
-            echo json_encode(["error" => "Error al actualizar el usuario"]);
+            echo "<error>Error al actualizar el usuario</error>";
         }
     }
 
     public static function delete($id) {
         if (UsuariosService::eliminarUsuario($id)) {
             header("HTTP/1.1 200 OK");
-            echo json_encode(["message" => "Usuario eliminado exitosamente"]);
+            echo "<message>Usuario eliminado exitosamente</message>";
         } else {
             header("HTTP/1.1 500 Internal Server Error");
-            echo json_encode(["error" => "Error al eliminar el usuario"]);
+            echo "<error>Error al eliminar el usuario</error>";
         }
     }
 }
 ?>
+<?php
