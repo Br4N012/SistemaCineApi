@@ -31,7 +31,5 @@ else if($request_method === "GET" && preg_match('/\/api\/funciones\/pelicula\/(\
     exit;
 }
 
-else {
-    header("HTTP/1.1 404 Not Found");
-}
+
 ?>

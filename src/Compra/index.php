@@ -1,3 +1,2 @@
 <?php
-require_once 'routes/CompraRoutes.php';
-?>
+require_once __DIR__ . '/compraRoutes/CompraRoutes.php';

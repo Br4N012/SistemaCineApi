@@ -1,12 +1,10 @@
 <?php
-require_once __DIR__ . '/../models/Boleto.php';
+require_once __DIR__ . '/../compraModels/Boleto.php';
 
 class CompraService {
     // Reservar un boleto
     public static function reservarBoleto($id_usuario, $id_funcion, $id_asiento) {
-        if (!Boleto::verificarDisponibilidad($id_asiento, $id_funcion)) {
-            throw new Exception("El asiento no está disponible.");
-        }
+        // Llama al método reservar de Boleto y devuelve el ID insertado o false
         return Boleto::reservar($id_usuario, $id_funcion, $id_asiento);
     }
 

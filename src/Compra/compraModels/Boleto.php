@@ -5,10 +5,13 @@ class Boleto {
     // Reservar un boleto (cambia estado a 'reservado' temporalmente)
     public static function reservar($id_usuario, $id_funcion, $id_asiento) {
         global $conn;
-        $sql = "INSERT INTO boletos (id_usuario, id_funcion, id_asiento, estado) VALUES (?, ?, ?, 'reservado')";
+        $sql = "INSERT INTO boletos (id_usuario, id_funcion, id_asiento, estado) VALUES (?, ?, ?, 'disponible')";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("iii", $id_usuario, $id_funcion, $id_asiento);
-        return $stmt->execute();
+        if ($stmt->execute()) {
+            return $conn->insert_id; // Devuelve el ID insertado
+        }
+        return false;
     }
 
     // Confirmar compra (cambia estado a 'comprado' y registra pago)

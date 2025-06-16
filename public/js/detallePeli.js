@@ -1,4 +1,3 @@
-
 let selectedFunctionId = null;
 let selectedSeats = [];
 let availableSeatsMap = new Map();
@@ -109,7 +108,7 @@ function updateBackButtonsVisibility() {
 
 async function loadShowtimes() {
     try {
-        const response = await fetch(`src/get_funciones.php?pelicula_id=${PELICULA_ID}`);
+        const response = await fetch(`/api/funciones/pelicula/${PELICULA_ID}`);
         const funciones = await response.json();
 
         if (funciones.length === 0) {
@@ -158,7 +157,7 @@ async function selectShowtime(button, func) {
 
 async function loadSeats(functionId) {
     try {
-        const response = await fetch(`src/get_asientos.php?function_id=${functionId}`);
+const response = await fetch(`/api/asientos/funcion/${functionId}`);
         const asientos = await response.json();
 
         availableSeatsMap.clear();
@@ -270,21 +269,18 @@ buyTicketsBtn.addEventListener('click', async () => {
     }
 
     try {
-        const response = await fetch('src/process_purchase.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                function_id: selectedFunctionId,
-                seat_ids: selectedSeats.map(s => s.id),
-                total_price: selectedSeats.length * SEAT_PRICE,
-                payment_method: selectedPaymentMethod,
-                movie_title: MOVIE_TITLE, // Usa la nueva variable
-                showtime: currentShowtimeText,
-                room_name: currentRoomName
-            })
-        });
+       const response = await fetch('/api/compra/comprar', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        function_id: selectedFunctionId,
+        seat_ids: selectedSeats.map(s => s.id),
+        total_price: selectedSeats.length * SEAT_PRICE,
+        payment_method: selectedPaymentMethod
+    })
+});
 
         const result = await response.json();
 
@@ -310,14 +306,14 @@ buyTicketsBtn.addEventListener('click', async () => {
             bookingFlowContainer.style.display = 'none';
             receiptContainer.style.display = 'block';
 
-            document.getElementById('receipt-movie-title').textContent = result.receipt.movie_title;
-            document.getElementById('receipt-showtime').textContent = result.receipt.showtime;
-            document.getElementById('receipt-room-name').textContent = result.receipt.room_name;
-            document.getElementById('receipt-seats').textContent = result.receipt.seats_numbers;
-            document.getElementById('receipt-payment-method').textContent = result.receipt.payment_method;
-            document.getElementById('receipt-purchase-date').textContent = result.receipt.purchase_date;
-            document.getElementById('receipt-total-price').textContent = `$${parseFloat(result.receipt.total_price).toFixed(2)}`;
-            document.getElementById('receipt-qr').src = generateRandomQrCodeUrl();
+            document.getElementById('receipt-movie-title').textContent = MOVIE_TITLE;
+document.getElementById('receipt-showtime').textContent = currentShowtimeText;
+document.getElementById('receipt-room-name').textContent = currentRoomName;
+document.getElementById('receipt-seats').textContent = selectedSeats.map(s => s.numero).join(', ');
+document.getElementById('receipt-payment-method').textContent = selectedPaymentMethod;
+document.getElementById('receipt-purchase-date').textContent = new Date().toLocaleString();
+document.getElementById('receipt-total-price').textContent = `$${(selectedSeats.length * SEAT_PRICE).toFixed(2)}`;
+document.getElementById('receipt-qr').src = generateRandomQrCodeUrl();
 
             showAlert('¡Compra Exitosa!', '¡Tu compra ha sido procesada correctamente! Disfruta tu película.');
 

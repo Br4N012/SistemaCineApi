@@ -108,12 +108,26 @@
                     item.classList.add('active');
 
                     const selectedMonth = item.dataset.month;
-                    fetch(`get_movies_by_month.php?month=${selectedMonth}`)
-                        .then(response => response.text())
-                        .then(data => {
-                            peliculasGrid.innerHTML = data;
-                        })
-                        .catch(error => console.error('Error al cargar películas:', error));
+                    fetch(`/api/peliculas/mes/${selectedMonth}`)
+    .then(response => response.json())
+    .then(data => {
+        peliculasGrid.innerHTML = '';
+        data.forEach(pelicula => {
+            peliculasGrid.innerHTML += `
+                <div class="card" data-id="${pelicula.id}" data-img="/public/images/${pelicula.poster}" data-titulo="${pelicula.titulo}" data-sinopsis="${pelicula.sinopsis}">
+                    <img src="/public/images/${pelicula.poster}" alt="${pelicula.titulo}">
+                    <div class="movie-info">
+                        <strong>${pelicula.titulo}</strong><br>
+                        ${pelicula.genero} | ${pelicula.clasificacion} | ${pelicula.duracion} min
+                    </div>
+                </div>
+            `;
+        });
+        if (data.length === 0) {
+            peliculasGrid.innerHTML = `<p>No hay películas para ${selectedMonth}.</p>`;
+        }
+    })
+    .catch(error => console.error('Error al cargar películas:', error));
                 });
             });
 

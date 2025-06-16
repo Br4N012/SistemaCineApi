@@ -4,8 +4,10 @@ require_once __DIR__ . '/../services/AsientosService.php';
 class AsientosController {
 
 
-    public static function getByFuncion($conn, $id_funcion) { 
-        $asientosService = new AsientosService($conn); // Llama al método de instancia
+    public static function getByFuncion($id_funcion) {
+        global $conn;
+        $asientosService = new AsientosService($conn);
+        $asientos = $asientosService->obtenerPorFuncion($id_funcion);
         header('Content-Type: application/json');
         echo json_encode($asientos);
     }

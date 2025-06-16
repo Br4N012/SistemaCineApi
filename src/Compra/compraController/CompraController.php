@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../services/CompraService.php';
+require_once __DIR__ . '/../compraServices/CompraService.php';
 require_once __DIR__ . '/../../../handler/XmlHandler.php';
 
 class CompraController {
@@ -25,19 +25,49 @@ class CompraController {
 
     // POST /api/boletos/comprar
     public static function comprar() {
-        $data = file_get_contents("php://input");
-        $xml = simplexml_load_string($data);
+        $data = json_decode(file_get_contents("php://input"));
 
-        $id_boleto = (int)$xml->id_boleto;
-        $metodo_pago = (string)$xml->metodo_pago;
-        $total_pago = (float)$xml->total_pago;
+        // Validar datos
+        if (!isset($data->function_id, $data->seat_ids, $data->total_price, $data->payment_method)) {
+            header("HTTP/1.1 400 Bad Request");
+            echo json_encode(["success" => false, "message" => "Datos incompletos"]);
+            return;
+        }
 
-        if (CompraService::comprarBoleto($id_boleto, $metodo_pago, $total_pago)) {
-            header("HTTP/1.1 200 OK");
-            echo "<message>Compra confirmada</message>";
+        $function_id = (int)$data->function_id;
+        $seat_ids = $data->seat_ids;
+        $total_price = (float)$data->total_price;
+        $payment_method = (string)$data->payment_method;
+        $usuario_id = 1; // O el usuario real si tienes login
+
+        $success = true;
+        $errores = [];
+        $boletos_ids = [];
+
+        foreach ($seat_ids as $seat_id) {
+            $boleto_id = CompraService::reservarBoleto($usuario_id, $function_id, $seat_id);
+            if ($boleto_id) {
+                $boletos_ids[] = $boleto_id;
+                $compra = CompraService::comprarBoleto($boleto_id, $payment_method, $total_price / count($seat_ids));
+                // ACTUALIZA EL ESTADO DEL ASIENTO A NO DISPONIBLE
+                require_once __DIR__ . '/../../Asientos/Models/Asientos.php';
+                Asientos::actualizarEstado($seat_id, 0);
+                if (!$compra) {
+                    $success = false;
+                    $errores[] = "Error al comprar boleto para asiento $seat_id";
+                }
+            } else {
+                $success = false;
+                $errores[] = "No se pudo reservar el asiento $seat_id";
+            }
+        }
+
+        if ($success) {
+            header("Content-Type: application/json");
+            echo json_encode(["success" => true, "message" => "Compra confirmada", "boletos" => $boletos_ids]);
         } else {
             header("HTTP/1.1 500 Internal Server Error");
-            echo "<error>Error al confirmar la compra</error>";
+            echo json_encode(["success" => false, "message" => "Error al confirmar la compra", "errores" => $errores]);
         }
     }
 }
