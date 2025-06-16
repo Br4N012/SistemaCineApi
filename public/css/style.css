@@ -100,9 +100,12 @@ header {
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
     display: flex;
-    justify-content: center;
+    flex-direction: column; 
+    justify-content: flex-start;
     align-items: center;
+    text-align: center;
 }
+
 .card img {
     width: 120px;
     height: 180px;

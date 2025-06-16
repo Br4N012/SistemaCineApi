@@ -1,9 +1,6 @@
 <?php
 // api/index.php
 require_once '../src/Peliculas/routes/PeliculasRoutes.php';
-require_once '../src/Funciones/routes/FuncionesRoutes.php';
-
-
 
 $request_uri = $_SERVER['REQUEST_URI'];
 $request_method = $_SERVER['REQUEST_METHOD'];
