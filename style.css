@@ -1,0 +1,177 @@
+body {
+    margin: 0;
+    background-color: #111 !important;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+header {
+    padding: 1rem;
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+.main-nav .nav-item {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    background-color: #333;
+    border: none;
+    cursor: pointer;
+}
+.main-nav .nav-item:hover,
+.main-nav .nav-item.active {
+    background-color: #555;
+}
+.destacadas {
+    position: relative;
+    height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+.fondo {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+    transition: background-image 0.5s ease-in-out;
+}
+.pelicula-info {
+    position: relative; 
+    z-index: 2;
+    max-width: 50%; 
+    text-align: center;
+    background-color: rgba(53, 53, 53, 0.7);
+    padding: 2.5rem 3rem; 
+    border-radius: 10px;
+    margin-bottom: 3rem; 
+}
+.pelicula-info h2 {
+    font-size: 3.5rem; 
+    margin-bottom: 1rem;
+}
+.pelicula-info p {
+    font-size: 1.3rem; 
+    line-height: 1.7;
+    margin-bottom: 2rem; 
+}
+.btn-comprar {
+    background-color: #842225;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    margin-left: auto; 
+    margin-right: auto; 
+}
+.btn-comprar:hover {
+    background-color: #741d21;
+}
+.peliculas-destacadas {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0 2rem;
+    width: 100%;
+    max-width: 900px;
+}
+.card {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card img {
+    width: 120px;
+    height: 180px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    object-fit: cover;
+    object-position: center top;
+}
+.card:hover img,
+.card.active-card img {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+.coming-soon {
+    padding: 2rem;
+}
+.coming-soon h2 {
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+.coming-soon .main-nav {
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+}
+.pelicula {
+    background-color: transparent;
+    border-radius: 0;
+    overflow: hidden;
+    text-align: left;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: none;
+}
+.pelicula img {
+    width: 100%;
+    height: 300px;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
+    object-position: center;
+}
+.pelicula-details {
+    padding: 0.5rem 0.5rem 1rem;
+    background-color: transparent;
+}
+.pelicula h3 {
+    font-size: 1.2rem;
+    margin: 2;
+    color: white;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    padding: 0;
+    margin-bottom: 0.3rem;
+    height: 1.4em;
+}
+.pelicula p {
+    font-size: 0.9rem;
+    color: #bbb;
+    margin: 0;
+    padding: 0;
+}

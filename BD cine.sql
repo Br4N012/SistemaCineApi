@@ -19,6 +19,9 @@ CREATE TABLE peliculas (
     poster VARCHAR(255)
 );
 
+ALTER TABLE peliculas
+ADD COLUMN mes_estreno VARCHAR(20) DEFAULT NULL;
+
 CREATE TABLE salas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50),
