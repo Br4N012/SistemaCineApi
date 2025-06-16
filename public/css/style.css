@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #111 !important;
+    background-color: #1b1e28 !important;
     color: white;
     font-family: Arial, sans-serif;
 }
@@ -8,7 +8,7 @@ header {
     padding: 1rem;
     font-size: 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; 
     align-items: center;
 }
 .main-nav {
@@ -28,7 +28,7 @@ header {
 }
 .main-nav .nav-item:hover,
 .main-nav .nav-item.active {
-    background-color: #555;
+    background-color: #374161;
 }
 .destacadas {
     position: relative;
@@ -54,7 +54,7 @@ header {
     z-index: 2;
     max-width: 50%; 
     text-align: center;
-    background-color: rgba(53, 53, 53, 0.7);
+    background-color: rgba(69, 69, 69, 0.7);
     padding: 2.5rem 3rem; 
     border-radius: 10px;
     margin-bottom: 3rem; 

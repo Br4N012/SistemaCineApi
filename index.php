@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Cine Nizami</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
     <header>
-        <h1>NIZAMI</h1>
+        <h1>CINEAN</h1>
     </header>
 
     <section class="destacadas">
@@ -20,7 +20,6 @@
         </div>
         <div class="peliculas-destacadas">
             <?php
-                // Solo películas de junio para la sección destacada (limitado a 5)
                 $query_junio = "SELECT id, titulo, poster, sinopsis FROM peliculas WHERE mes_estreno = 'junio' LIMIT 5";
                 $result_junio = $conn->query($query_junio);
                 if ($result_junio->num_rows > 0) {
@@ -47,10 +46,7 @@
         
         <div class="grid" id="peliculas-grid">
             <?php
-                // Esto se encargará de mostrar las películas por defecto (Julio) al cargar la página.
-                // Inicialmente, este bloque puede estar vacío ya que el JS se encargará de la carga inicial.
-                // Sin embargo, si quisieras que el PHP renderice algo por defecto antes del JS, aquí iría.
-                // Para este caso, el JS lo manejará completamente.
+
             ?>
         </div>
     </section>
@@ -79,32 +75,29 @@
                     comprarBoletosBtn.onclick = () => {
                         window.location.href = `detalle_pelicula.php?id=${card.dataset.id}`;
                     };
-                    // Remove active class from all cards
                     cards.forEach(c => c.classList.remove('active-card'));
-                    // Add active class to the current card for styling (e.g., larger size)
                     card.classList.add('active-card');
                 }
             }
 
             function startAutoSlide() {
-                clearInterval(intervalId); // Clear any existing interval
+                clearInterval(intervalId); 
                 intervalId = setInterval(() => {
                     currentCardIndex = (currentCardIndex + 1) % cards.length;
                     updateFeaturedMovie(currentCardIndex);
-                }, 5000); // Change movie every 5 seconds
+                }, 5000); 
             }
 
-            // Initial load and start auto-slide
             if (cards.length > 0) {
                 updateFeaturedMovie(0);
                 startAutoSlide();
             }
 
             cards.forEach((card, index) => {
-                card.addEventListener('click', () => { // Changed from mouseover to click for better control
+                card.addEventListener('click', () => { 
                     currentCardIndex = index;
                     updateFeaturedMovie(currentCardIndex);
-                    startAutoSlide(); // Restart auto-slide on manual selection
+                    startAutoSlide(); 
                 });
             });
 
@@ -124,7 +117,6 @@
                 });
             });
 
-            // Automatically click the "Julio" button on page load if no month is specified in URL
             const urlParams = new URLSearchParams(window.location.search);
             const initialMonth = urlParams.get('mes');
             if (initialMonth) {
@@ -133,7 +125,6 @@
                     initialNavItem.click();
                 }
             } else {
-                // If no month in URL, default to "Julio"
                 const defaultNavItem = document.querySelector('.nav-item[data-default-active="true"]');
                 if (defaultNavItem) {
                     defaultNavItem.click();

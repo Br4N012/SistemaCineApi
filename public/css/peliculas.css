@@ -1,0 +1,438 @@
+        body {
+            background-color: #1a1a1a; 
+            color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .booking-container, .receipt-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 3rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background-color:rgb(41, 44, 49);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            flex-grow: 1; 
+        }
+
+        .movie-info-panel {
+            flex: 1;
+            min-width: 280px; 
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .movie-info-panel img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            margin-bottom: 1rem;
+        }
+
+        .movie-info-panel h2 {
+            font-size: 2.2rem;
+            color:rgb(227, 227, 227); 
+            margin-bottom: 0.5rem;
+        }
+
+        .movie-info-panel p {
+            font-size: 1.1rem;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .booking-details-panel {
+            flex: 2; 
+            min-width: 450px; 
+            background-color:rgb(38, 39, 43);
+            padding: 2rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .booking-details-panel h3 {
+            font-size: 1.8rem;
+            color: #f0f0f0;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #444;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: #f0f0f0;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .showtime-selection, .payment-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .showtime-btn, .payment-btn {
+            background-color: #555;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border 0.3s ease;
+            white-space: nowrap; 
+        }
+
+        .showtime-btn:hover, .payment-btn:hover {
+            background-color: #777;
+        }
+
+        .showtime-btn.selected, .payment-btn.selected {
+            background-color:rgb(23, 45, 67); 
+            border: 2px solid #24404f; 
+        }
+
+        .seat-map-container {
+            background-color: #444;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .screen-indicator {
+            width: 80%;
+            height: 15px;
+            background-color:rgb(32, 32, 32);
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            line-height: 15px;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .seat-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .seat {
+            width: 30px;
+            height: 30px;
+            background-color: #5cb85c; 
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            border: 1px solid #4cae4c;
+        }
+
+        .seat.unavailable {
+            background-color: #d9534f; 
+            cursor: not-allowed;
+            border: 1px solid #c9302c;
+        }
+
+        .seat.selected {
+            background-color:rgb(139, 59, 45); 
+            border: 1px solidrgb(146, 58, 58);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .seat {
+                width: 25px;
+                height: 25px;
+                font-size: 0.7rem;
+            }
+            .seat-row {
+                gap: 0.3rem;
+            }
+        }
+
+        .summary-panel {
+            background-color: #3d3d3d;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .summary-panel h4 {
+            font-size: 1.3rem;
+            color: #f0f0f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            color: #bbb;
+        }
+
+        .summary-total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color:rgb(192, 198, 234);
+            border-top: 1px solid #555;
+            padding-top: 0.8rem;
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .final-purchase-btn {
+            background-color: #1a4860;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .final-purchase-btn:hover {
+            background-color:rgb(153, 77, 80);
+        }
+
+        .receipt-container {
+            background-color: #fff;
+            color: #333;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            font-family: Arial, sans-serif;
+            display: none; 
+        }
+        .receipt-container h2 {
+            text-align: center;
+            color: #e50914;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        .receipt-details p {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        .receipt-details strong {
+            color: #555;
+        }
+        .receipt-summary {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #ccc;
+            font-size: 1.1rem;
+        }
+        .receipt-summary div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .receipt-qr-code {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .receipt-qr-code img {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #eee;
+            padding: 5px;
+        }
+        .receipt-footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        .print-pdf-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .print-pdf-btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media print {
+            body > *:not(.receipt-container) {
+                display: none !important;
+            }
+            .receipt-container {
+                display: block !important;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .print-pdf-btn {
+                display: none !important;
+            }
+        }
+
+        .back-button {
+            position: fixed; 
+            top: 50px; 
+            left: 20px; 
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1000; 
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f0f0f0; 
+            font-size: 1.5rem; 
+            transition: background-color 0.3s ease, border-radius 0.3s ease; 
+            width: 50px; 
+            height: 50px; 
+            border-radius: 50%; 
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.2); 
+            border-radius: 50%; 
+        }
+
+        .back-button svg {
+            width: 30px; 
+            height: 30px; 
+            fill: currentColor; 
+        }
+
+        .back-button.for-booking {
+            display: block; 
+        }
+
+        .back-button.for-receipt {
+            display: none; 
+        }
+
+        .modal-overlay {
+            display: none; 
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); 
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; 
+            opacity: 0; 
+            visibility: hidden; 
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: rgb(41, 44, 49); 
+            color: #f0f0f0;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 90%; 
+            transform: translateY(-20px); 
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: translateY(0); 
+        }
+
+        .modal-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: rgb(227, 227, 227);
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-button {
+            background-color: #1a4860; 
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-button:hover {
+            background-color: rgb(153, 77, 80); 
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px; 
+        }
+
+        .modal-button.cancel-button {
+            background-color: #6c757d; 
+        }
+
+        .modal-button.cancel-button:hover {
+            background-color: #5a6268;
+        }
