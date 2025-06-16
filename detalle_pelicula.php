@@ -58,7 +58,7 @@ $seat_price = 85.00;
 
     <div class="booking-container" id="booking-flow">
         <div class="movie-info-panel">
-            <img src="images/<?php echo htmlspecialchars($pelicula['poster']); ?>" alt="<?php echo htmlspecialchars($pelicula['titulo']); ?>">
+            <img src="public/images/<?php echo htmlspecialchars($pelicula['poster']); ?>" alt="<?php echo htmlspecialchars($pelicula['titulo']); ?>">
             <h2><?php echo htmlspecialchars($pelicula['titulo']); ?></h2>
             <p>Selecciona una función y tus asientos para continuar con la compra.</p>
         </div>

@@ -24,8 +24,8 @@
                 $result_junio = $conn->query($query_junio);
                 if ($result_junio->num_rows > 0) {
                     while ($row_junio = $result_junio->fetch_assoc()) {
-                        echo '<div class="card" data-id="' . $row_junio["id"] . '" data-img="images/' . $row_junio["poster"] . '" data-titulo="' . htmlspecialchars($row_junio["titulo"]) . '" data-sinopsis="' . htmlspecialchars($row_junio["sinopsis"]) . '">
-                                <img src="images/' . $row_junio["poster"] . '" alt="' . $row_junio["titulo"] . '">
+                        echo '<div class="card" data-id="' . $row_junio["id"] . '" data-img="public/images/' . $row_junio["poster"] . '" data-titulo="' . htmlspecialchars($row_junio["titulo"]) . '" data-sinopsis="' . htmlspecialchars($row_junio["sinopsis"]) . '">
+                                <img src="public/images/' . $row_junio["poster"] . '" alt="' . $row_junio["titulo"] . '">
                               </div>';
                     }
                 } else {

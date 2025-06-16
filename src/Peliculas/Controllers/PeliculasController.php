@@ -20,6 +20,12 @@ class PeliculasController {
         }
         echo XmlHandler::generarXml($pelicula, 'pelicula');
     }
+    public static function getByMes($mes) {
+    $peliculas = PeliculasService::obtenerPorMes($mes);
+    header('Content-Type: application/json');
+    echo json_encode($peliculas);
+}
+
 
     public static function ordenarPorClasificacion() {
         $peliculas = PeliculasService::ordenarPorClasificacion();

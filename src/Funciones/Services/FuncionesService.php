@@ -9,6 +9,9 @@ class FuncionesService {
     public static function obtenerPorId($id) {
         return Funciones::obtenerPorId($id);
     }
+    public static function obtenerPorPelicula($id_pelicula) {
+        return Funciones::obtenerPorPelicula($id_pelicula);
+    }
 
     public static function crearFuncion($id_pelicula, $id_sala, $horario) {
         return Funciones::crearFuncion($id_pelicula, $id_sala, $horario);

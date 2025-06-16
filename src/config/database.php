@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $user = "root";
-$password = "Starfox19.";
+$password = "password";
 $database = "cine";
 
 $conn = new mysqli($host, $user, $password, $database);

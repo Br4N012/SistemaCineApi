@@ -63,5 +63,10 @@ class FuncionesController {
             echo "<error>Error al eliminar la función</error>";
         }
     }
+    public static function getByPelicula($id_pelicula) {
+    $funciones = FuncionesService::obtenerPorPelicula($id_pelicula);
+    header('Content-Type: application/json');
+    echo json_encode($funciones);
+}
 }
 ?>

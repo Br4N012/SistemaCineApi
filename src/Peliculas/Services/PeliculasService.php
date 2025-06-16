@@ -9,6 +9,9 @@ class PeliculasService {
     public static function obtenerPorId($id) {
         return Peliculas::obtenerPorId($id);
     }
+    public static function obtenerPorMes($mes) {
+        return Peliculas::obtenerPorMes($mes);
+    }
 
     public static function ordenarPorClasificacion() {
         return Peliculas::ordenarPorClasificacion();
